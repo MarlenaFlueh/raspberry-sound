@@ -1,12 +1,16 @@
 const serialport = require("serialport");
 const axios = require("axios");
 const express = require("express");
+const bodyParser = require('body-parser');
 const app = express();
 
 let border = 100;
 
+app.use(bodyParser.json());
+
 app.post('/*', function (req, res) {
-    console.log(req.params);
+    let value = req.body;
+    console.log(value);
     console.log("test successful");
 })
 
