@@ -35,3 +35,4 @@ port.on("open", onPortOpen);
 parser.on("data", addData);
 port.on("close", onClose);
 port.on("error", onError);
+
