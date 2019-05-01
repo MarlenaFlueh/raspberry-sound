@@ -3,8 +3,11 @@ const axios = require("axios");
 const express = require("express");
 const app = express();
 
+let border = 100;
+
 app.post('/', function (req, res) {
-    console.log("test successful")
+    console.log(req.params);
+    console.log("test successful");
 })
 
 //const url = "http://192.168.2.65:5000/decibel";
@@ -23,7 +26,7 @@ function onPortOpen() {
 }
 
 const addData = async decibel => {
-    console.log("data received: " + decibel);
+    console.log("data received: " + decibel + typeof (decibel));
     /*axios.post(url, {
         db: decibel
     });*/
