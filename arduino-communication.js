@@ -1,5 +1,11 @@
 const serialport = require("serialport");
 const axios = require("axios");
+const express = require("express");
+const app = express();
+
+app.post('/', function (req, res) {
+    console.log("test successful")
+})
 
 //const url = "http://192.168.2.65:5000/decibel";
 console.log("starts");
@@ -36,3 +42,4 @@ parser.on("data", addData);
 port.on("close", onClose);
 port.on("error", onError);
 
+module.exports = app;
