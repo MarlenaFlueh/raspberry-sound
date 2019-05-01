@@ -5,7 +5,7 @@ const app = express();
 
 let border = 100;
 
-app.post('/', function (req, res) {
+app.post('/*', function (req, res) {
     console.log(req.params);
     console.log("test successful");
 })
@@ -26,7 +26,7 @@ function onPortOpen() {
 }
 
 const addData = async decibel => {
-    console.log("data received: " + decibel + typeof (decibel));
+    console.log("data received: " + decibel);
     /*axios.post(url, {
         db: decibel
     });*/
