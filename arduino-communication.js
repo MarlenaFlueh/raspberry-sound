@@ -4,12 +4,13 @@ const express = require("express");
 const app = express();
 
 app.post('/', function (req, res) {
+    res.send("success")
     console.log("test successful")
 })
 
 //const url = "http://192.168.2.65:5000/decibel";
 console.log("starts");
-
+/*
 const port = new serialport("/dev/ttyUSB0", {
     baudRate: 9600
 });
@@ -24,9 +25,9 @@ function onPortOpen() {
 
 const addData = async decibel => {
     console.log("data received: " + decibel);
-    /*axios.post(url, {
+    axios.post(url, {
         db: decibel
-    });*/
+    });
 };
 
 const onClose = () => {
@@ -41,5 +42,5 @@ port.on("open", onPortOpen);
 parser.on("data", addData);
 port.on("close", onClose);
 port.on("error", onError);
-
+*/
 module.exports = app;
