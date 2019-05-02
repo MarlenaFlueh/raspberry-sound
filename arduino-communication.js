@@ -18,10 +18,13 @@ app.post('/*', async function (req, res) {
 })
 
 const controlLED = decibel => {
+    console.log(typeof (decibel));
+    decibel = parseInt(decibel);
     if (border > decibel) {
+        console.log("Grenzwert kleiner Lautstärke.");
         LED.writeSync(1);
     } else {
-        console.log("smaller 100")
+        console.log("Grenzwert größer Lautstärke.");
         LED.writeSync(0); // making the gpio 3 off. Will turn LED off
     }
 }
