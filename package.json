@@ -1,5 +1,5 @@
 {
-  "name": "pi-webserver",
+  "name": "raspberry-sound",
   "version": "1.0.0",
   "description": "",
   "main": "arduino-communication.js",

@@ -14,7 +14,7 @@ app.post('/*', function (req, res) {
     console.log("test successful");
 })
 
-//const url = "http://192.168.2.65:5000/decibel";
+const url = "http://192.168.0.101:8086/write?db=noise";
 console.log("starts");
 
 const port = new serialport("/dev/ttyUSB0", {
@@ -31,9 +31,13 @@ function onPortOpen() {
 
 const addData = async decibel => {
     console.log("data received: " + decibel);
-    /*axios.post(url, {
-        db: decibel
-    });*/
+    axios({
+	method: 'post',
+	url: url,
+	data: "noise_data,room=300,sensor=1 adc_value=" + decibel.replace( /^\D+/g, '').replace(/\r?\n|\r/, '') + "i,db_value=50i"
+    }).then(function(response){
+	console.log(response);
+    }).catch((e) => {console.log(e);});
 };
 
 const onClose = () => {
