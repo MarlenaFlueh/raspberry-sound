@@ -18,9 +18,8 @@ app.post('/*', async function (req, res) {
 })
 
 const controlLED = decibel => {
-    console.log(decibel);
     decibel = decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '');
-    console.log(decibel);
+    console.log("Grenzwert: " + border + " ,Lautstärke: " + decibel);
     if (border > decibel) {
         console.log("Grenzwert kleiner Lautstärke.");
         LED.writeSync(1);
