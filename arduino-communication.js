@@ -21,10 +21,10 @@ const controlLED = decibel => {
     decibel = decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '');
     console.log("Grenzwert: " + border + " ,Lautstärke: " + decibel);
     if (border > decibel) {
-        console.log("Grenzwert kleiner Lautstärke.");
+        console.log("Zu laut.");
         LED.writeSync(1);
     } else {
-        console.log("Grenzwert größer Lautstärke.");
+        console.log("Lautstärke okay.");
         LED.writeSync(0); // making the gpio 3 off. Will turn LED off
     }
 }
