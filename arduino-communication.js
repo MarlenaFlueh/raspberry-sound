@@ -15,11 +15,10 @@ app.post('/*', async function (req, res) {
     res.send("Success.");
     border = result;
     console.log("Grenzwert: " + result);
-    controlLED();
 })
 
-const controlLED = () => {
-    if (border > 100) {
+const controlLED = decibel => {
+    if (decibel > 100) {
         LED.writeSync(1);
     } else {
         console.log("smaller 100")
@@ -27,7 +26,6 @@ const controlLED = () => {
     }
 }
 
-/*
 const url = "http://192.168.0.101:8086/write?db=noise";
 console.log("starts");
 
@@ -52,6 +50,7 @@ const addData = async decibel => {
     }).then(function (response) {
         console.log(response);
     }).catch((e) => { console.log(e); });
+    controlLED(decibel);
 };
 
 const onClose = () => {
@@ -66,6 +65,6 @@ port.on("open", onPortOpen);
 parser.on("data", addData);
 port.on("close", onClose);
 port.on("error", onError);
-*/
+
 module.exports = app;
 
