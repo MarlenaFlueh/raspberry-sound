@@ -3,17 +3,29 @@ const axios = require("axios");
 const express = require("express");
 const bodyParser = require('body-parser');
 const app = express();
+const Gpio = require('onoff').Gpio;
 
+const LED = new Gpio(3, 'out'); // gpio 3 as out
 let border = 100;
 
 app.use(bodyParser.json());
 
-app.post('/*', function (req, res) {
-    let value = req.body;
-    console.log(value);
-    console.log("test successful");
+app.post('/*', async function (req, res) {
+    const result = await req.params[0];
+    res.send("Success.");
+    border = result;
+    console.log("Grenzwert: " + result);
+
+    if (border > 100) {
+        LED.writeSync(1);
+    } else {
+        console.log(2)
+        LED.writeSync(0); // making the gpio 3 off. Will turn LED off
+        LED.unexport(); // Unexport GPIO to free resources
+    }
 })
 
+/*
 const url = "http://192.168.0.101:8086/write?db=noise";
 console.log("starts");
 
@@ -32,12 +44,12 @@ function onPortOpen() {
 const addData = async decibel => {
     console.log("data received: " + decibel);
     axios({
-	method: 'post',
-	url: url,
-	data: "noise_data,room=300,sensor=1 adc_value=" + decibel.replace( /^\D+/g, '').replace(/\r?\n|\r/, '') + "i,db_value=50i"
-    }).then(function(response){
-	console.log(response);
-    }).catch((e) => {console.log(e);});
+        method: 'post',
+        url: url,
+        data: "noise_data,room=300,sensor=1 adc_value=" + decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '') + "i,db_value=50i"
+    }).then(function (response) {
+        console.log(response);
+    }).catch((e) => { console.log(e); });
 };
 
 const onClose = () => {
@@ -52,5 +64,6 @@ port.on("open", onPortOpen);
 parser.on("data", addData);
 port.on("close", onClose);
 port.on("error", onError);
-
+*/
 module.exports = app;
+
