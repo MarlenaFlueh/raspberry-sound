@@ -15,7 +15,10 @@ app.post('/*', async function (req, res) {
     res.send("Success.");
     border = result;
     console.log("Grenzwert: " + result);
+    controlLED();
+})
 
+const controlLED = () => {
     if (border > 100) {
         LED.writeSync(1);
     } else {
@@ -23,7 +26,7 @@ app.post('/*', async function (req, res) {
         LED.writeSync(0); // making the gpio 3 off. Will turn LED off
         LED.unexport(); // Unexport GPIO to free resources
     }
-})
+}
 
 /*
 const url = "http://192.168.0.101:8086/write?db=noise";
