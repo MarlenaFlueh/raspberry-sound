@@ -18,7 +18,7 @@ app.post('/*', async function (req, res) {
 })
 
 const controlLED = decibel => {
-    if (decibel > 100) {
+    if (border > decibel) {
         LED.writeSync(1);
     } else {
         console.log("smaller 100")
