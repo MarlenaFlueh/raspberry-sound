@@ -4,11 +4,13 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const app = express();
 const Gpio = require('onoff').Gpio;
+const cors = require("cors");
 
 const LED = new Gpio(3, 'out'); // gpio 3 as out
 let border = 100;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/*', async function (req, res) {
     const result = await req.params[0];
