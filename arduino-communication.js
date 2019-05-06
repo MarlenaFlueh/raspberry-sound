@@ -12,13 +12,15 @@ let border = 100;
 app.use(bodyParser.json());
 app.use(cors());
 
+// get border from react GUI
 app.post('/*', async function (req, res) {
     const result = await req.params[0];
     res.send("Success.");
     border = result;
-    console.log("Grenzwert: " + result);
+    console.log("Grenzwert: " + border);
 })
 
+// turn LED on/off
 const controlLED = decibel => {
     newDec = decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '');
     console.log("Grenzwert: " + border + " ,Lautstärke: " + decibel);
@@ -49,7 +51,7 @@ function onPortOpen() {
 const addData = async decibel => {
     console.log("data received: " + decibel);
     const cleanedDecibel = decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '');
-    const intDecibel = 20 * Math.log(parseInt(cleanedDecibel) / 200) + 80
+    const intDecibel = 20 * Math.log((parseInt(cleanedDecibel) - 130) / 200) + 80
     console.log("DECIBEL: " + intDecibel)
     axios({
         method: 'post',
@@ -58,7 +60,7 @@ const addData = async decibel => {
     }).then(function (response) {
         console.log(response);
     }).catch((e) => { console.log(e); });
-    controlLED(decibel);
+    controlLED(intDecibel);
 };
 
 const onClose = () => {
