@@ -48,10 +48,13 @@ function onPortOpen() {
 
 const addData = async decibel => {
     console.log("data received: " + decibel);
+    const cleanedDecibel = decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '');
+    const intDecibel = parseInt(cleanedDecibel)
+    console.log("DECIBEL: " + intDecibel)
     axios({
         method: 'post',
         url: url,
-        data: "noise_data,room=300,sensor=1 adc_value=" + decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '') + "i,db_value=50i"
+        data: "noise_data,room=300,sensor=1 adc_value=" + cleanedDecibel + "i,db_value=" + intDecibel + "i"
     }).then(function (response) {
         console.log(response);
     }).catch((e) => { console.log(e); });
