@@ -56,7 +56,7 @@ const addData = async decibel => {
     axios({
         method: 'post',
         url: url,
-        data: "noise_data,room=300,sensor=1 adc_value=" + cleanedDecibel + "i,db_value=" + intDecibel + "i"
+        data: "noise_data,room=300,sensor=1 adc_value=" + cleanedDecibel + ",db_value=" + intDecibel
     }).then(function (response) {
         console.log(response);
     }).catch((e) => { console.log(e); });
