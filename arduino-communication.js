@@ -51,7 +51,7 @@ function onPortOpen() {
 const addData = async decibel => {
     console.log("data received: " + decibel);
     const cleanedDecibel = decibel.replace(/^\D+/g, '').replace(/\r?\n|\r/, '');
-    const intDecibel = 20 * Math.log((parseInt(cleanedDecibel) - 130) / 200) + 80
+    const intDecibel = 20 * Math.log(parseInt(cleanedDecibel) / 200) + 80
     console.log("DECIBEL: " + intDecibel)
     axios({
         method: 'post',
