@@ -6,7 +6,8 @@ const app = express();
 const Gpio = require('onoff').Gpio;
 const cors = require("cors");
 
-const LED = new Gpio(3, 'out'); // gpio 3 as out
+const LED1 = new Gpio(3, 'out'); // gpio 3 as out
+const LED2 = new Gpio(9, 'out'); // gpio 9 as out
 let border = 100;
 
 app.use(bodyParser.json());
@@ -23,12 +24,15 @@ app.post('/*', async function (req, res) {
 // turn LED on/off
 const controlLED = decibel => {
     console.log("Grenzwert: " + border + " ,Lautstärke: " + decibel);
-    if (parseInt(border) > decibel) {
-        console.log("Zu laut.");
-        LED.writeSync(1);
+    if (parseInt(border) * 1.1 < decibel) {
+        LED1.writeSync(1);
+        LED2.writeSync(1);
+    } else if (parseInt(border) < decibel) {
+        LED1.writeSync(1); // making the gpio 3 off. Will turn LED off
+        LED2.writeSync(0);
     } else {
-        console.log("Lautstärke okay.");
-        LED.writeSync(0); // making the gpio 3 off. Will turn LED off
+        LED1.writeSync(0); // making the gpio 3 off. Will turn LED off
+        LED2.writeSync(0);
     }
 }
 
